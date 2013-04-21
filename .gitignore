@@ -1,5 +1,8 @@
 *.py[cod]
 
+# config file
+config.py
+mykey.pem
 # C extensions
 *.so
 
