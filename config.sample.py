@@ -1,0 +1,2 @@
+imapacc = accountname
+imappass= imappassword
