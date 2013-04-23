@@ -22,23 +22,27 @@ class Colorado:
     r = list()
     for i in l:
       c = [0,0,0]
+      
+      # Wenn Uni-intern
+      index = 1
+      if 'from' in i and i['from'].find('uni-stuttgart.de') != -1:
+        index = 2
+
 
       # Wenn schon lange her
       if 'date' not in i or i['date'] == None:
         c[0] = 255
       else:
         td = now - i['date']
-        hours = td.days*24 + td.seconds / 3600
-        if hours > 24*3:
-          c[0] = 255
+        minutes = td.days*24*60 + td.seconds / 60
+        if minutes < 24*60:
+          c[0] = 0
+          c[index] = 255
+        else:
+          t = min(2*255, 2*255*(minutes - 24*60) / (24*60*6))
+          c[0] = min(t, 255)
+          c[index] = min(2*255-t, 255)
 
-      
-      # Wenn Uni-intern
-      if 'from' in i and i['from'].find('uni-stuttgart.de') != -1:
-        c[2] = 255
-
-      if c[0] == 0 and c[1] == 0 and c[2] == 0:
-        c[1] = 255
       r.append(c)
 
     return r

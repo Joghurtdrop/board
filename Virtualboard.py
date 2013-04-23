@@ -48,7 +48,7 @@ class Virtualboard(AbstractBoard):
 
     self.refresh()
 
-    self.master.after(500, self.update)
+    self.master.after(1000, self.update)
 
   def run(self):
     self.update()
