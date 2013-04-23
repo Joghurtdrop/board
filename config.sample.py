@@ -1,2 +1,4 @@
-imapacc = accountname
-imappass= imappassword
+imapacc = 'accountname'
+imappass= 'imappassword'
+imaphost = 'host'
+imapcertfile = 'certfile'

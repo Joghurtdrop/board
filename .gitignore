@@ -2,7 +2,7 @@
 
 # config file
 config.py
-mykey.pem
+tmpkey.pem
 # C extensions
 *.so
 
