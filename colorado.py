@@ -21,25 +21,24 @@ class Colorado:
     now = datetime.now()
     r = list()
     for i in l:
-      c = ['0','0','0']
+      c = [0,0,0]
 
       # Wenn schon lange her
       if 'date' not in i or i['date'] == None:
-        c[0] = 'f'
+        c[0] = 255
       else:
         td = now - i['date']
         hours = td.days*24 + td.seconds / 3600
         if hours > 24*3:
-          c[0] = 'f'
+          c[0] = 255
 
       
       # Wenn Uni-intern
       if 'from' in i and i['from'].find('uni-stuttgart.de') != -1:
-        c[2] = 'f'
+        c[2] = 255
 
-      c = c[0]+c[1]+c[2]
-      if c == '000':
-        c = '0f0'
+      if c[0] == 0 and c[1] == 0 and c[2] == 0:
+        c[1] = 255
       r.append(c)
 
     return r

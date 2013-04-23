@@ -2,6 +2,7 @@
 import imap
 import config
 import colorado
+import Virtualboard
 
 mail = imap.Imap()
 mail.setLogin(config.imaphost, config.imapacc,config.imappass, config.imapcertfile)
@@ -9,7 +10,10 @@ mail.setLogin(config.imaphost, config.imapacc,config.imappass, config.imapcertfi
 colors = colorado.Colorado()
 colors.setGetterClass(mail)
 
-print(colors.get())
+vibo = Virtualboard.Virtualboard()
+vibo.setGetterClass(colors)
+
+vibo.run()
 
 mail.logout()
 
