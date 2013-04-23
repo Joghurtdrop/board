@@ -54,7 +54,7 @@ class Imap:
   """
   " Gibt eine Liste von Datum Absender-Tupeln zurueck
   """  
-  def getUnseen(self):
+  def get(self):
     mail = self.getMail()
 
     mail.select("Inbox")
