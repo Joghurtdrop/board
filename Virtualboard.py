@@ -44,7 +44,7 @@ class Virtualboard(AbstractBoard):
     self.drawCircles(self.getGetterClass().get())
 
   def update(self):
-    self.i += 1
+    self.i -= 1
 
     self.refresh()
 
