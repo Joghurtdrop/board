@@ -8,8 +8,7 @@ class Virtualboard(AbstractBoard):
   def __init__(self):
     self.master = Tk()
     self.w = Canvas(self.master, width=900, height=900)
-
-    self.image = ImageTk.PhotoImage(file = "images/ProjektiveEbene.png")
+    self.image = ImageTk.PhotoImage(file = "{0}/images/ProjektiveEbene.png".format(os.path.dirname(__file__)))
     self.w.pack()
 
     self.i = 0
@@ -43,7 +42,7 @@ class Virtualboard(AbstractBoard):
 
     self.c = list()
     for i in c:
-      self.c.append((i[0], 900-i[1], i[0]+70.866, 900-i[1]-70.866))
+      self.c.append((i[0]-1, 900-i[1]+1, i[0]+70.866+1, 900-i[1]-70.866-1))
 
   def drawCircles(self, cols):
     self.w.create_image(0, 0, image = self.image, anchor = NW )
@@ -52,7 +51,7 @@ class Virtualboard(AbstractBoard):
     #  self.w.create_oval(self.c[j][0], self.c[j][1], self.c[j][2], self.c[j][3], fill="#000", width=0)
     
     for i in range(min(len(self.c), len(cols))):
-      j = (i+self.i) % len(self.c)
+      j = (self.i-i) % len(self.c)
       self.w.create_oval(self.c[j][0], self.c[j][1], self.c[j][2], self.c[j][3], fill=self.toColor(cols[i]), width=0)
 
   def refresh(self):
