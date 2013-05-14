@@ -1,11 +1,15 @@
+import os
 from Tkinter import *
 import random
+from PIL import ImageTk
 from AbstractBoard import AbstractBoard
 
 class Virtualboard(AbstractBoard):
   def __init__(self):
     self.master = Tk()
     self.w = Canvas(self.master, width=900, height=900)
+
+    self.image = ImageTk.PhotoImage(file = "images/ProjektiveEbene.png")
     self.w.pack()
 
     self.i = 0
@@ -42,7 +46,7 @@ class Virtualboard(AbstractBoard):
       self.c.append((i[0], 900-i[1], i[0]+70.866, 900-i[1]-70.866))
 
   def drawCircles(self, cols):
-    self.w.create_rectangle(  0,   0, 900, 900, fill="white", width=0)
+    self.w.create_image(0, 0, image = self.image, anchor = NW )
     
     #for j in range(len(self.c)):
     #  self.w.create_oval(self.c[j][0], self.c[j][1], self.c[j][2], self.c[j][3], fill="#000", width=0)
