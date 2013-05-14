@@ -1,3 +1,4 @@
+import os
 import imaplib 
 import subprocess
 import datetime
@@ -29,7 +30,7 @@ class Imap:
     if self.mail == None:
       logind = self.getLogin()
       subprocess.call('openssl genrsa -out tmpkey.pem 1034 &> /dev/null', shell=True)
-      self.mail = imaplib.IMAP4_SSL(host=logind[0],keyfile='tmpkey.pem',certfile=logind[3])
+      self.mail = imaplib.IMAP4_SSL(host=logind[0],keyfile='{0}/tmpkey.pem'.format(os.path.dirname(__file__)),certfile=logind[3])
       r,d = self.mail.login(logind[1], logind[2]) 
 
     return self.mail
