@@ -6,25 +6,14 @@ from AbstractBoard import AbstractBoard
 
 class Virtualboard(AbstractBoard):
   def __init__(self):
+    super(self.__class__, self).__init__()
+
     self.master = Tk()
     self.w = Canvas(self.master, width=900, height=900)
     self.image = ImageTk.PhotoImage(file = "{0}/images/ProjektiveEbene.png".format(os.path.dirname(__file__)))
     self.w.pack()
 
-    self.i = 0
-
-    self.circlesCoords()  
-
-  def toColor(self, color):
-    s = '#'
-    c = '0123456789abcdef'
-  
-    for i in color:
-      s += c[i / 16]
-
-    return s
-
-  def circlesCoords(self):
+    # Led Coords
     c = list()
     c.append((815.146, 319.083))
     c.append((680.231, 644.798))
@@ -44,23 +33,15 @@ class Virtualboard(AbstractBoard):
     for i in c:
       self.c.append((i[0]-1, 900-i[1]+1, i[0]+70.866+1, 900-i[1]-70.866-1))
 
-  def drawCircles(self, cols):
+
+  def setLeds(self, colors):
     self.w.create_image(0, 0, image = self.image, anchor = NW )
     
-    #for j in range(len(self.c)):
-    #  self.w.create_oval(self.c[j][0], self.c[j][1], self.c[j][2], self.c[j][3], fill="#000", width=0)
-    
-    for i in range(min(len(self.c), len(cols))):
-      j = (self.i-i) % len(self.c)
-      self.w.create_oval(self.c[j][0], self.c[j][1], self.c[j][2], self.c[j][3], fill=self.toColor(cols[i]), width=0)
-
-  def refresh(self):
-    self.drawCircles(self.getGetterClass().get())
+    for j in range(len(colors)):
+      self.w.create_oval(self.c[j][0], self.c[j][1], self.c[j][2], self.c[j][3], fill=colors[j], width=0)
 
   def update(self):
-    self.i += 1
-
-    self.refresh()
+    super(Virtualboard, self).update()
 
     self.master.after(1000, self.update)
 
