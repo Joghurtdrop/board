@@ -18,6 +18,9 @@ class Colorado:
     getter = self.getGetterClass()
     l = getter.get()
 
+    if l == None:
+      return None
+
     now = datetime.now()
     r = list()
     for i in l:

@@ -1,3 +1,4 @@
+import time
 
 class AbstractBoard(object):
   def __init__(self):
@@ -29,23 +30,34 @@ class AbstractBoard(object):
     return s
 
   def refresh(self):
-    cols = self.getGetterClass().get()
-
     colors = range(self.leds)
+    
+    cols = self.getGetterClass().get()
+    
+    # Effekt, wenn keine Connection vorhanden ist
+    if cols == None:
+      cols = [(255,0,0) for i in colors] if self.i % 2 == 0 else list()
+    elif len(cols) == 0:
+      cols = [(255,255,255) for i in colors] if self.i % 2 == 0 else [(0,0,0)]
+    
     for i in range(self.leds): #len(self.c), len(cols))):
-      j = (self.i-i) % len(self.c)
+      j = (self.i-i) % self.leds
       if i < len(cols):
-        colors[j] = self.toColor(cols[i])
+        colors[j] = cols[i]
       else:
-        colors[j] = "#000"
-
+        colors[j] = (0,0,0)
+   
+    print(colors) 
+    return
     self.setLeds(colors)
 
   def update(self):
-    self.i += 1
+    self.i = (self.i + 1) % self.leds
 
     self.refresh()
 
   # Run muss alle x Sekunden die update-funktion aufrufen
   def run(self):
-    pass
+    while True:
+      self.update()
+      time.sleep(1)

@@ -59,20 +59,23 @@ class Imap:
   " Gibt eine Liste von Datum Absender-Tupeln zurueck
   """  
   def get(self):
-    mail = self.getMail()
+    try:
+      mail = self.getMail()
 
-    mail.select("Inbox")
+      mail.select("Inbox")
 
-    result, data=mail.search(None,'(UNSEEN)')
-    if len(data[0]) == 0:
-      return list()
+      result, data=mail.search(None,'(UNSEEN)')
+      if len(data[0]) == 0:
+        return list()
 
-    ids = data[0].split(" ")
+      ids = data[0].split(" ")
 
-    data = list()
-    for id in ids:
-      data.append(self.getMailInfo(id))
+      data = list()
+      for id in ids:
+        data.append(self.getMailInfo(id))
 
-    return data
+      return data
+    except:
+      return None
 
    
