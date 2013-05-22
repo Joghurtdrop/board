@@ -20,7 +20,7 @@ class AbstractBoard(object):
   def setLeds(self, colors):
     pass
 
-  def toColor(self, color):
+  def col2hex(self, color):
     s = '#'
     c = '0123456789abcdef'
   
@@ -47,17 +47,20 @@ class AbstractBoard(object):
       else:
         colors[j] = (0,0,0)
    
-    print(colors) 
-    return
     self.setLeds(colors)
 
-  def update(self):
-    self.i = (self.i + 1) % self.leds
+  def sleep(self, ms):
+    time.sleep(ms*0.001)
 
+  def updateAndWait(self):
+    # Zwei wegen Blinken
+    self.i = (self.i + 1) % (self.leds*2)
+    
+    self.sleep(1000)
+    
     self.refresh()
 
-  # Run muss alle x Sekunden die update-funktion aufrufen
+
   def run(self):
     while True:
-      self.update()
-      time.sleep(1)
+      self.updateAndWait()

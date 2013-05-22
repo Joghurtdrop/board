@@ -1,13 +1,17 @@
 import os
+from Tkinter import *
 import random
-from PIL import Image
+from PIL import ImageTk
 from AbstractBoard import AbstractBoard
 
 class Virtualboard(AbstractBoard):
   def __init__(self):
     super(self.__class__, self).__init__()
 
-    self.image = Image.open("images/ProjektiveEbene.png")
+    self.master = Tk()
+    self.w = Canvas(self.master, width=900, height=900)
+    self.image = ImageTk.PhotoImage(file = "images/ProjektiveEbene.png")
+    self.w.pack()
 
     # Led Coords
     c = list()
@@ -31,8 +35,17 @@ class Virtualboard(AbstractBoard):
 
 
   def setLeds(self, colors):
+    self.w.create_image(0, 0, image = self.image, anchor = NW )
     
-    #for j in range(len(colors)):
-    #  self.w.create_oval(self.c[j][0], self.c[j][1], self.c[j][2], self.c[j][3], fill=colors[j], width=0)
-    self.image.show()
+    for j in range(len(colors)):
+      self.w.create_oval(self.c[j][0], self.c[j][1], self.c[j][2], self.c[j][3], fill=self.col2hex(colors[j]), width=0)
+
+  def updateAndWait(self):
+    super(Virtualboard, self).updateAndWait()
+
+    self.master.after(1, self.updateAndWait)
+
+  def run(self):
+    self.updateAndWait()
+    self.master.mainloop()
 
