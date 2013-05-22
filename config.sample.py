@@ -1,4 +1,4 @@
-imapacc = 'accountname'
+imapacc = 'fs-mathe'
 imappass= 'imappassword'
-imaphost = 'host'
-imapcertfile = 'certfile'
+imaphost = 'imap.faveve.uni-stuttgart.de'
+imapcertfile = 'faveve.ca.crt'
