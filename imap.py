@@ -77,5 +77,4 @@ class Imap:
       return data
     except:
       return None
-
-   
+  
